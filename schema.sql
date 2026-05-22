@@ -17,11 +17,14 @@ CREATE TABLE submissions (
   existing_provider VARCHAR(40) NOT NULL,
   compliance_requirement VARCHAR(40) NOT NULL,
   support_requirement VARCHAR(40) NOT NULL,
+  deployment_preference VARCHAR(40) NOT NULL,
   aws_score INT NOT NULL,
   azure_score INT NOT NULL,
   gcp_score INT NOT NULL,
   final_recommendation VARCHAR(20) NOT NULL,
   confidence_score INT NOT NULL,
   explanation TEXT NOT NULL,
+  reasons_json TEXT,
+  services_json TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

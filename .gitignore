@@ -1,6 +1,0 @@
-.env
-backend/config.local.php
-.venv/
-__pycache__/
-.DS_Store
-Thumbs.db

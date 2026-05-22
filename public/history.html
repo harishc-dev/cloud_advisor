@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>History | Cloud Advisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <div class="logo">Cloud Advisor</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="assessment.html">Assessment</a>
+        <a href="result.html">Results</a>
+      </div>
+    </nav>
+    <header class="page-header">
+      <h1>Assessment History</h1>
+      <p>View all previous assessments and open any result again.</p>
+    </header>
+
+    <section class="card elevated" id="history-card">
+      <div class="history-actions">
+        <button class="button ghost" type="button" id="clear-history">Clear history</button>
+      </div>
+      <div id="history-list" class="history-grid"></div>
+      <div id="history-empty" class="form-message"></div>
+    </section>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

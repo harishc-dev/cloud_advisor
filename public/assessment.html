@@ -14,27 +14,50 @@
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="result.html">Results</a>
+        <a href="history.html">History</a>
       </div>
     </nav>
     <header class="page-header">
       <h1>Project Assessment</h1>
-      <p>Fill out the form below. We will recommend the best cloud provider for your project.</p>
+      <p>Answer a few quick questions to get your cloud ranking and a service-level stack.</p>
     </header>
 
     <form id="assessment-form" class="card elevated">
-      <div class="grid">
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-title">Step <span id="step-current">1</span> of <span id="step-total">1</span></span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div class="step active">
+        <h3 class="step-question">What is your name?</h3>
         <label>
           Name
-          <input type="text" name="name" required maxlength="120" />
+          <input type="text" name="name" required maxlength="120" placeholder="Your name" />
         </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">What is your email?</h3>
         <label>
           Email
-          <input type="email" name="email" required maxlength="160" />
+          <input type="email" name="email" required maxlength="160" placeholder="you@company.com" />
         </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">Which industry best describes you?</h3>
         <label>
           Industry / Field
-          <input type="text" name="industry" required maxlength="120" />
+          <input type="text" name="industry" required maxlength="120" placeholder="e.g., SaaS, Healthcare" />
         </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">What is your project type?</h3>
         <label>
           Project type / Use case
           <select name="project_type" required>
@@ -48,6 +71,10 @@
             <option>Other</option>
           </select>
         </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">How large is the project?</h3>
         <label>
           Project scale
           <select name="project_scale" required>
@@ -58,6 +85,10 @@
             <option>Enterprise</option>
           </select>
         </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">What is your monthly budget?</h3>
         <label>
           Monthly budget range
           <select name="budget_range" required>
@@ -69,10 +100,18 @@
             <option>$10,000+</option>
           </select>
         </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">Where are your primary users located?</h3>
         <label>
           Primary user region / location
-          <input type="text" name="primary_region" required maxlength="120" />
+          <input type="text" name="primary_region" required maxlength="120" placeholder="e.g., India, US-East" />
         </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">How many active users do you expect?</h3>
         <label>
           Expected active users
           <select name="active_users" required>
@@ -83,6 +122,10 @@
             <option>100,000+</option>
           </select>
         </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">What traffic pattern do you expect?</h3>
         <label>
           Traffic pattern
           <select name="traffic_pattern" required>
@@ -92,22 +135,44 @@
             <option>Heavy spikes</option>
           </select>
         </label>
-        <label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">Do you need a database?</h3>
+        <label class="option-group">
           Database needed?
-          <select name="database_needed" required>
-            <option value="">Select...</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
+          <div class="option-pills">
+            <label class="option-pill">
+              <input type="radio" name="database_needed" value="yes" required />
+              Yes
+            </label>
+            <label class="option-pill">
+              <input type="radio" name="database_needed" value="no" required />
+              No
+            </label>
+          </div>
         </label>
-        <label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">Do you need file storage?</h3>
+        <label class="option-group">
           File storage needed?
-          <select name="file_storage_needed" required>
-            <option value="">Select...</option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-          </select>
+          <div class="option-pills">
+            <label class="option-pill">
+              <input type="radio" name="file_storage_needed" value="yes" required />
+              Yes
+            </label>
+            <label class="option-pill">
+              <input type="radio" name="file_storage_needed" value="no" required />
+              No
+            </label>
+          </div>
         </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">What is your AI/ML requirement?</h3>
         <label>
           AI/ML requirement level
           <select name="ai_requirement" required>
@@ -118,16 +183,10 @@
             <option>High</option>
           </select>
         </label>
-        <label>
-          Microsoft integration importance
-          <select name="microsoft_integration" required>
-            <option value="">Select...</option>
-            <option>Not important</option>
-            <option>Nice to have</option>
-            <option>Important</option>
-            <option>Critical</option>
-          </select>
-        </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">How much control do you want?</h3>
         <label>
           Ease of use vs advanced control
           <select name="ease_vs_control" required>
@@ -137,6 +196,10 @@
             <option>Prefer advanced control</option>
           </select>
         </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">Do you already use a cloud provider?</h3>
         <label>
           Existing cloud/provider
           <select name="existing_provider" required>
@@ -148,15 +211,10 @@
             <option>Other</option>
           </select>
         </label>
-        <label>
-          Compliance/security requirement
-          <select name="compliance_requirement" required>
-            <option value="">Select...</option>
-            <option>Basic</option>
-            <option>Moderate</option>
-            <option>Strict</option>
-          </select>
-        </label>
+      </div>
+
+      <div class="step">
+        <h3 class="step-question">What support level do you need?</h3>
         <label>
           Support requirement
           <select name="support_requirement" required>
@@ -168,7 +226,37 @@
         </label>
       </div>
 
-      <button class="button primary" type="submit">Get Recommendation</button>
+      <div class="step">
+        <h3 class="step-question">Deployment preference?</h3>
+        <label class="option-group">
+          Deployment preference
+          <div class="option-pills">
+            <label class="option-pill">
+              <input type="radio" name="deployment_preference" value="Serverless" required />
+              ⚡ Serverless
+            </label>
+            <label class="option-pill">
+              <input type="radio" name="deployment_preference" value="Containers" required />
+              📦 Containers
+            </label>
+            <label class="option-pill">
+              <input type="radio" name="deployment_preference" value="VMs" required />
+              🖥️ VMs
+            </label>
+            <label class="option-pill">
+              <input type="radio" name="deployment_preference" value="PaaS" required />
+              🚀 PaaS
+            </label>
+          </div>
+        </label>
+      </div>
+
+      <div class="step-actions">
+        <button class="button ghost" type="button" id="prev-step">Previous</button>
+        <button class="button primary" type="button" id="next-step">Next</button>
+        <button class="button primary" type="submit" id="submit-step">Get Recommendation</button>
+      </div>
+
       <div id="form-message" class="form-message" aria-live="polite"></div>
     </form>
   </div>
