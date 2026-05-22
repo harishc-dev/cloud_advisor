@@ -18,6 +18,10 @@ function fetch_gemini_explanation(array $answers, array $scores): ?string
         return null;
     }
 
+    if (!function_exists('curl_init')) {
+        return null;
+    }
+
     $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' . urlencode(GEMINI_API_KEY);
     $payload = [
         'contents' => [
@@ -47,6 +51,10 @@ function fetch_gemini_explanation(array $answers, array $scores): ?string
     }
 
     $data = json_decode($response, true);
+    if (!is_array($data)) {
+        return null;
+    }
+
     return $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
 }
 

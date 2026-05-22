@@ -4,16 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Results | Cloud Advisor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
   <div class="container">
+    <nav class="navbar">
+      <div class="logo">Cloud Advisor</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="assessment.html">Assessment</a>
+      </div>
+    </nav>
     <header class="page-header">
       <h1>Your Cloud Recommendation</h1>
       <p>Based on your answers, here is the ranking of cloud providers.</p>
     </header>
 
-    <section class="card" id="result-card">
+    <section class="card elevated" id="result-card">
       <div class="result-header">
         <h2 id="top-provider">Loading...</h2>
         <span class="badge" id="confidence">Confidence: --</span>

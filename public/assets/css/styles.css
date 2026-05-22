@@ -1,12 +1,14 @@
 :root {
   color-scheme: light;
   --primary: #2563eb;
-  --secondary: #1e293b;
-  --background: #f8fafc;
+  --primary-dark: #1d4ed8;
+  --secondary: #0f172a;
+  --background: #f1f5f9;
   --card: #ffffff;
-  --text: #0f172a;
+  --text: #0b1120;
   --muted: #475569;
   --border: #e2e8f0;
+  --accent: #22c55e;
 }
 
 * {
@@ -16,24 +18,80 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: var(--background);
+  font-family: "Plus Jakarta Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle at top left, #dbeafe, transparent 45%),
+    radial-gradient(circle at top right, #e0e7ff, transparent 40%),
+    var(--background);
   color: var(--text);
   line-height: 1.6;
 }
 
 .container {
-  width: min(960px, 92%);
+  width: min(1100px, 92%);
   margin: 48px auto;
 }
 
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.3px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+}
+
 .hero {
-  text-align: center;
-  padding: 48px 24px;
+  text-align: left;
+  padding: 56px;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 30px 70px rgba(15, 23, 42, 0.12);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 2.8vw, 3rem);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #ffffff, #eff6ff);
+  border-radius: 20px;
+  padding: 24px;
+  border: 1px solid #dbeafe;
+  display: grid;
+  gap: 16px;
+}
+
+.hero-card strong {
+  display: block;
+  font-size: 1.05rem;
 }
 
 .page-header {
@@ -47,9 +105,14 @@ body {
 .card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.card.elevated {
+  border: none;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
 }
 
 .grid {
@@ -70,9 +133,10 @@ label {
 input,
 select {
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid var(--border);
   font-size: 14px;
+  background: #f8fafc;
 }
 
 .button {
@@ -82,20 +146,21 @@ select {
   border: 1px solid var(--primary);
   color: var(--primary);
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   transition: all 0.2s ease;
   cursor: pointer;
   background: transparent;
 }
 
 .button.primary {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), #60a5fa);
   color: #ffffff;
+  border: none;
 }
 
 .button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
 }
 
 .button.ghost {
@@ -118,9 +183,9 @@ select {
 .badge {
   padding: 6px 12px;
   border-radius: 999px;
-  background: #e0f2fe;
-  color: #0369a1;
-  font-weight: 600;
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 700;
 }
 
 .score-grid {
@@ -134,7 +199,7 @@ select {
   padding: 16px;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background: #f1f5f9;
+  background: #f8fafc;
 }
 
 .actions {
@@ -147,4 +212,19 @@ select {
 ul {
   margin-left: 20px;
   margin-bottom: 16px;
+}
+
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pill {
+  background: #e2e8f0;
+  color: #1e293b;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
 }

@@ -1,9 +1,38 @@
 <?php
+header('Content-Type: application/json');
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
+error_reporting(E_ALL);
+ob_start();
+
+set_error_handler(function (int $severity, string $message, string $file, int $line): bool {
+    throw new ErrorException($message, 0, $severity, $file, $line);
+});
+
+set_exception_handler(function (Throwable $error): void {
+    if (ob_get_length()) {
+        ob_end_clean();
+    }
+    http_response_code(500);
+    echo json_encode(['error' => 'Server error. Check logs.']);
+    exit;
+});
+
+register_shutdown_function(function (): void {
+    $error = error_get_last();
+    if ($error && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR], true)) {
+        if (ob_get_length()) {
+            ob_end_clean();
+        }
+        http_response_code(500);
+        echo json_encode(['error' => 'Server error. Check logs.']);
+        exit;
+    }
+});
+
 require_once __DIR__ . '/../../backend/scoring.php';
 require_once __DIR__ . '/../../backend/db.php';
 require_once __DIR__ . '/../../backend/gemini.php';
-
-header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -37,6 +66,18 @@ foreach ($requiredFields as $field) {
 if (!filter_var($input['email'], FILTER_VALIDATE_EMAIL)) {
     http_response_code(422);
     echo json_encode(['error' => 'Invalid email address']);
+    exit;
+}
+
+if (!in_array('mysql', PDO::getAvailableDrivers(), true)) {
+    http_response_code(500);
+    echo json_encode(['error' => 'PDO MySQL driver not installed.']);
+    exit;
+}
+
+if (DB_HOST === '' || DB_NAME === '' || DB_USER === '' || DB_PASSWORD === '') {
+    http_response_code(500);
+    echo json_encode(['error' => 'Database configuration is missing.']);
     exit;
 }
 

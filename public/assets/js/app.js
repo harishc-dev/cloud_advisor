@@ -16,7 +16,15 @@ if (form) {
         body: JSON.stringify(payload),
       });
 
-      const result = await response.json();
+      const raw = await response.text();
+      let result;
+      try {
+        result = JSON.parse(raw);
+      } catch (parseError) {
+        const preview = raw.replace(/\s+/g, ' ').slice(0, 200);
+        throw new Error(`Server returned an invalid response. ${preview}`);
+      }
+
       if (!response.ok) {
         throw new Error(result.error || 'Something went wrong');
       }
