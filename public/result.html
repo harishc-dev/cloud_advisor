@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Results | Cloud Advisor</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <h1>Your Cloud Recommendation</h1>
+      <p>Based on your answers, here is the ranking of cloud providers.</p>
+    </header>
+
+    <section class="card" id="result-card">
+      <div class="result-header">
+        <h2 id="top-provider">Loading...</h2>
+        <span class="badge" id="confidence">Confidence: --</span>
+      </div>
+      <div class="score-grid" id="score-grid"></div>
+      <h3>Top Reasons</h3>
+      <ul id="reasons-list"></ul>
+      <h3>Why this cloud?</h3>
+      <p id="explanation"></p>
+    </section>
+
+    <div class="actions">
+      <a class="button" href="assessment.html">Run another assessment</a>
+      <a class="button ghost" href="index.html">Back to home</a>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
