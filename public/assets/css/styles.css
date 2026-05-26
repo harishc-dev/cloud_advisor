@@ -189,7 +189,8 @@ label {
 }
 
 input,
-select {
+select,
+textarea {
   padding: 12px 14px;
   border-radius: 14px;
   border: 1px solid var(--border);
@@ -199,7 +200,8 @@ select {
 }
 
 input:focus,
-select:focus {
+select:focus,
+textarea:focus {
   outline: none;
   border-color: rgba(79, 70, 229, 0.6);
   box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
@@ -242,6 +244,12 @@ select:focus {
 .form-message {
   margin-top: 12px;
   color: var(--muted);
+}
+
+.feedback-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
 }
 
 .result-header {

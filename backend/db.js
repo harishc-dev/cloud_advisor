@@ -78,6 +78,16 @@ async function initDb() {
     )`
   );
 
+  await run(
+    `CREATE TABLE IF NOT EXISTS feedback (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      submission_id INTEGER,
+      rating INTEGER NOT NULL,
+      comment TEXT,
+      created_at TEXT DEFAULT (datetime('now'))
+    )`
+  );
+
   const columns = await all('PRAGMA table_info(submissions)');
   const columnNames = columns.map((col) => col.name);
   if (!columnNames.includes('deployment_preference')) {
@@ -139,7 +149,18 @@ async function insertSubmission(record) {
     record.services_json,
   ];
 
-  await run(sql, params);
+  const result = await run(sql, params);
+  return result?.lastID;
+}
+
+async function insertFeedback(record) {
+  const sql = `
+    INSERT INTO feedback (submission_id, rating, comment)
+    VALUES (?, ?, ?)
+  `;
+  const params = [record.submission_id || null, record.rating, record.comment || null];
+  const result = await run(sql, params);
+  return result?.lastID;
 }
 
 async function listSubmissions(limit = 50) {
@@ -164,6 +185,7 @@ async function clearSubmissions() {
 module.exports = {
   initDb,
   insertSubmission,
+  insertFeedback,
   listSubmissions,
   clearSubmissions,
 };

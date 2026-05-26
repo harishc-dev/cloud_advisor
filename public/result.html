@@ -36,6 +36,32 @@
       <p id="explanation"></p>
     </section>
 
+    <section class="card" id="feedback-card">
+      <h2>Leave feedback</h2>
+      <p class="form-message">Help us improve by rating this recommendation.</p>
+      <form id="feedback-form" class="feedback-form">
+        <label>
+          Rating (1-5)
+          <select name="rating" required>
+            <option value="" disabled selected>Select a rating</option>
+            <option value="5">5 - Excellent</option>
+            <option value="4">4 - Good</option>
+            <option value="3">3 - Okay</option>
+            <option value="2">2 - Needs work</option>
+            <option value="1">1 - Poor</option>
+          </select>
+        </label>
+        <label>
+          Comments (optional)
+          <textarea name="comment" rows="4" placeholder="Share what could be better..."></textarea>
+        </label>
+        <div class="step-actions">
+          <button class="button primary" type="submit">Send feedback</button>
+        </div>
+        <div class="form-message" id="feedback-message"></div>
+      </form>
+    </section>
+
     <div class="actions">
       <a class="button" href="assessment.html">Run another assessment</a>
       <a class="button ghost" href="index.html">Back to home</a>

@@ -171,6 +171,54 @@ if (resultCard) {
   }
 }
 
+const feedbackForm = document.getElementById('feedback-form');
+if (feedbackForm) {
+  const feedbackMessage = document.getElementById('feedback-message');
+  feedbackForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (feedbackMessage) {
+      feedbackMessage.textContent = 'Sending feedback...';
+    }
+
+    const formData = new FormData(feedbackForm);
+    const payload = Object.fromEntries(formData.entries());
+    const stored = JSON.parse(localStorage.getItem('cloudAdvisorResult') || '{}');
+    if (stored.submission_id) {
+      payload.submission_id = stored.submission_id;
+    }
+
+    try {
+      const response = await fetch('api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const raw = await response.text();
+      let result;
+      try {
+        result = JSON.parse(raw);
+      } catch (parseError) {
+        const preview = raw.replace(/\s+/g, ' ').slice(0, 200);
+        throw new Error(`Server returned an invalid response. ${preview}`);
+      }
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Unable to submit feedback');
+      }
+
+      if (feedbackMessage) {
+        feedbackMessage.textContent = 'Thanks! Your feedback was saved.';
+      }
+      feedbackForm.reset();
+    } catch (error) {
+      if (feedbackMessage) {
+        feedbackMessage.textContent = error.message;
+      }
+    }
+  });
+}
+
 const historyList = document.getElementById('history-list');
 if (historyList) {
   const empty = document.getElementById('history-empty');
@@ -217,6 +265,7 @@ if (historyList) {
         localStorage.setItem(
           'cloudAdvisorResult',
           JSON.stringify({
+            submission_id: item.id,
             top_provider: item.final_recommendation,
             ranking: [
               { provider: 'AWS', score: item.aws_score },

@@ -1,6 +1,12 @@
 const path = require('path');
 const express = require('express');
-const { initDb, insertSubmission, listSubmissions, clearSubmissions } = require('./backend/db');
+const {
+  initDb,
+  insertSubmission,
+  insertFeedback,
+  listSubmissions,
+  clearSubmissions,
+} = require('./backend/db');
 const { computeScores, buildReasons } = require('./backend/scoring');
 const { fetchGeminiInsights, fallbackExplanation, fallbackServices } = require('./backend/gemini');
 
@@ -51,7 +57,7 @@ app.post('/api/submit', async (req, res) => {
     const explanation = gemini?.explanation || fallbackExplanation(scores);
     const services = gemini?.services || fallbackServices(scores);
 
-    await insertSubmission({
+    const submissionId = await insertSubmission({
       ...input,
       microsoft_integration: input.microsoft_integration || 'Not important',
       compliance_requirement: input.compliance_requirement || 'Basic',
@@ -66,6 +72,7 @@ app.post('/api/submit', async (req, res) => {
     });
 
     return res.json({
+      submission_id: submissionId,
       top_provider: scores.top_provider,
       ranking: scores.ranking,
       confidence_score: scores.confidence_score,
@@ -105,6 +112,31 @@ app.delete('/api/submissions', async (req, res) => {
     return res.json({ ok: true });
   } catch (error) {
     console.error('Clear history error:', error);
+    return res.status(500).json({ error: 'Server error. Check logs.' });
+  }
+});
+
+app.post('/api/feedback', async (req, res) => {
+  const input = req.body || {};
+  const rating = Number.parseInt(input.rating, 10);
+  if (!Number.isFinite(rating) || rating < 1 || rating > 5) {
+    return res.status(422).json({ error: 'Rating must be between 1 and 5.' });
+  }
+
+  const comment = String(input.comment || '').trim();
+  const submissionId = Number.isFinite(Number(input.submission_id))
+    ? Number.parseInt(input.submission_id, 10)
+    : null;
+
+  try {
+    const feedbackId = await insertFeedback({
+      submission_id: submissionId,
+      rating,
+      comment,
+    });
+    return res.json({ ok: true, feedback_id: feedbackId });
+  } catch (error) {
+    console.error('Feedback error:', error);
     return res.status(500).json({ error: 'Server error. Check logs.' });
   }
 });
